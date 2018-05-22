@@ -1,10 +1,18 @@
 
 $(document).ready(function(e) {
 	var historique = [];
+	var ans_check = false;
 	// Sélections des chiffres
     $('#1,#2,#3,#4,#5,#6,#7,#8,#9,#0').click(function(){
-    	$('#debbug').val("Boite d'erreur !");
-		$('#answer').val($('#answer').val() + $(this).val());	
+    	if(ans_check === false)
+    	{
+    		$('#debbug').val("Boite d'erreur !");
+			$('#answer').val($('#answer').val() + $(this).val());	
+    	}
+    	else
+    	{
+    		$('#debbug').val("Selectionner un opérateur !");
+		}
 	});
 	// Pour nettoyer les valeurs et historique
 	$('#C').click(function(){
@@ -30,6 +38,7 @@ $(document).ready(function(e) {
 			$('#operation').val( $('#operation').val() + $('#answer').val() + $('#plus').val() );
 			// On clear le contenu et on attend le prochain chiffre
 			$('#answer').val('');
+			ans_check = false;
 			$('#equals').attr('onclick','');
 		}
     });
@@ -43,6 +52,7 @@ $(document).ready(function(e) {
 		else{
 			$('#operation').val( $('#operation').val() + $('#answer').val() + $('#subtract').val() );
 			$('#answer').val('');
+			ans_check = false;
 			$('#equals').attr('onclick','');
 		}
     });
@@ -56,6 +66,7 @@ $(document).ready(function(e) {
 		else{
 			$('#operation').val( $('#operation').val() + $('#answer').val() + $('#divide').val() );
 			$('#answer').val('');
+			ans_check = false;
 			$('#equals').attr('onclick','');
 		}
     });
@@ -69,6 +80,7 @@ $(document).ready(function(e) {
 		else{
 			$('#operation').val( $('#operation').val() + $('#answer').val() + $('#product').val() );
 			$('#answer').val('');
+			ans_check = false;
 			$('#equals').attr('onclick','');
 		}
     });	
@@ -82,6 +94,7 @@ $(document).ready(function(e) {
 		}
 		else{
 			$('#answer').val($('#last_value').val());
+			ans_check = true;
 			$('#equals').attr('onclick','');
 		}
     });	
@@ -96,8 +109,6 @@ $(document).ready(function(e) {
 			// On concatene le tout on obtient un string
 			var c = b.concat(a);
 			// On fait le calcul a l'aide du string
-			// $('#answer').val(eval(c));
-			// $('#operation').val(eval(c));
 			// On crée l historique
 			$('#last_value').val(eval(c));
 			historique.push(c + ' = ' + eval(c));
@@ -110,6 +121,7 @@ $(document).ready(function(e) {
 			// On vide les contenus
 			$('#answer').val('');
 			$('#operation').val('');
+			ans_check = false
 			$('#equals').attr('onclick','return false');
 		}
 	});
