@@ -4,8 +4,7 @@ $(document).ready(function(e) {
 	// Sélections des chiffres
     $('#1,#2,#3,#4,#5,#6,#7,#8,#9,#0').click(function(){
     	$('#debbug').val("Boite d'erreur !");
-		var v = $(this).val();
-		$('#answer').val($('#answer').val() + v);	
+		$('#answer').val($('#answer').val() + $(this).val());	
 	});
 	// Pour nettoyer les valeurs et historique
 	$('#C').click(function(){
@@ -97,15 +96,13 @@ $(document).ready(function(e) {
 			// On concatene le tout on obtient un string
 			var c = b.concat(a);
 			// On fait le calcul a l'aide du string
-			$('#answer').val(eval(c));
-			$('#operation').val(eval(c));
+			// $('#answer').val(eval(c));
+			// $('#operation').val(eval(c));
 			// On crée l historique
 			$('#last_value').val(eval(c));
-			// var my_histo = $('#historique').text($('#historique').text() + '\n' + c + ' = ' + eval(c));
-			// my_histo.html(my_histo.html().replace(/\n/g, '<br/>'));
 			historique.push(c + ' = ' + eval(c));
 			$('#historique').text('');
-			for (var i = 0; i < historique.length; i++)
+			for (var i = historique.length - 1; i >= 0; i--)
 			{
 				var my_histo = $('#historique').text($('#historique').text() + '\n' + historique[i]);
 			}
