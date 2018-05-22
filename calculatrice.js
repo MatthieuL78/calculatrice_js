@@ -1,5 +1,6 @@
 
 $(document).ready(function(e) {
+	var historique = [];
 	// Sélections des chiffres
     $('#1,#2,#3,#4,#5,#6,#7,#8,#9,#0').click(function(){
     	$('#debbug').val("Boite d'erreur !");
@@ -12,6 +13,7 @@ $(document).ready(function(e) {
 		$('#operation').val('');
 		$('#historique').text('');
 		$('#last_value').val('');
+		historique = [];
 		$('#equals').attr('onclick','');
 	});
 	// Les opérations
@@ -76,12 +78,10 @@ $(document).ready(function(e) {
 	
 		if($('#last_value').val() == ''){
 			$('#debbug').val("L'historique est vide !");
-			console.log("prout 1");
 			return false;
 			$('#equals').attr('onclick','');
 		}
 		else{
-			console.log("prout 2");
 			$('#answer').val($('#last_value').val());
 			$('#equals').attr('onclick','');
 		}
@@ -101,8 +101,14 @@ $(document).ready(function(e) {
 			$('#operation').val(eval(c));
 			// On crée l historique
 			$('#last_value').val(eval(c));
-			console.log($('#historique').text());
-			var my_histo = $('#historique').text($('#historique').text() + '\n' + c + ' = ' + eval(c));
+			// var my_histo = $('#historique').text($('#historique').text() + '\n' + c + ' = ' + eval(c));
+			// my_histo.html(my_histo.html().replace(/\n/g, '<br/>'));
+			historique.push(c + ' = ' + eval(c));
+			$('#historique').text('');
+			for (var i = 0; i < historique.length; i++)
+			{
+				var my_histo = $('#historique').text($('#historique').text() + '\n' + historique[i]);
+			}
 			my_histo.html(my_histo.html().replace(/\n/g, '<br/>'));
 			// On vide les contenus
 			$('#answer').val('');
